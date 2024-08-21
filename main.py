@@ -31,7 +31,7 @@ def put_state(answer):
     return
 
 
-while True:
+while state_no < 50:
 
     answer_state = screen.textinput(title=f"{state_no}/50Guess the State", prompt="What's another state's name?")
 
@@ -41,4 +41,7 @@ while True:
     elif answer_state is None:
         print('Game Over')
         break
+
+if state_no == 50:
+    print('You win')
 
