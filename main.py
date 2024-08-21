@@ -11,10 +11,6 @@ states = []
 print(os.getcwd())
 
 
-def get_mouse_click_coor(x, y):
-    turtle.onscreenclick(get_mouse_click_coor)
-    print(x, y)
-
 USA = pandas.read_csv("50_states.csv")
 print(USA)
 
@@ -32,25 +28,17 @@ def put_state(answer):
     text.setpos(x=int(row['x']), y=int(row['y']))
     text.write(answer)
     states.append(text)
-    return 1
-
-
-def check_state(answer):
-    check = USA["state"] == answer
-    check2 = USA[USA.state == answer]
-    isin = USA['state'].isin(list(answer))
-    for i in isin:
-        print(isin[1:])
+    return
 
 
 while True:
 
     answer_state = screen.textinput(title=f"{state_no}/50Guess the State", prompt="What's another state's name?")
+
     # check_state(answer_state)
-    put_state(answer_state)
+    if USA.state.isin([answer_state]).any().any():
+        put_state(answer_state)
+    elif answer_state is None:
+        print('Game Over')
+        break
 
-
-    # turtle.mainloop()
-
-
-  # Use int(ser.iloc[0])
