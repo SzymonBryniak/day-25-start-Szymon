@@ -8,6 +8,7 @@ image = "./blank_states_img.gif"
 screen.addshape(image)
 turtle.shape(image)
 states = []
+to_compare = []
 print(os.getcwd())
 
 
@@ -28,6 +29,8 @@ def put_state(answer):
     text.setpos(x=int(row['x']), y=int(row['y']))
     text.write(answer)
     states.append(text)
+    to_compare.append(answer)
+    print(to_compare)
     return
 
 
@@ -37,11 +40,13 @@ while state_no < 50:
 
     # check_state(answer_state)
     if USA.state.isin([answer_state]).any().any():
+
         put_state(answer_state)
     elif answer_state is None:
         print('Game Over')
+        new_data = USA[~USA.state.isin(to_compare)]
+        new_data.state.to_csv("states_to_learn.csv")
         break
 
 if state_no == 50:
     print('You win')
-
